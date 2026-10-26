@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-label="Pravin Bokare, Data Engineer and Forward Deployed Engineer. Open the interactive portfolio at pravinbokare.github.io">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#22d3ee"/>
+      <stop offset=".5" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#f472b6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".82" cy=".35" r=".55">
+      <stop offset="0" stop-color="#8b5cf6" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#030409" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx=".08" cy="1" r=".5">
+      <stop offset="0" stop-color="#0e7490" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#030409" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity=".045"/>
+    </pattern>
+    <clipPath id="card"><rect width="1200" height="320" rx="22"/></clipPath>
+    <style>
+      .p { animation: flow linear infinite; }
+      @keyframes flow { from { transform: translateX(-80px); } to { transform: translateX(1280px); } }
+      .blink { animation: blink 1s steps(1) infinite; }
+      @keyframes blink { 50% { opacity: 0; } }
+      .pulse { animation: pulse 2s ease-out infinite; transform-origin: 822px 247px; }
+      @keyframes pulse { from { transform: scale(1); opacity: .9; } to { transform: scale(3); opacity: 0; } }
+      .arrow { animation: nudge 1.6s ease-in-out infinite; }
+      @keyframes nudge { 50% { transform: translateX(6px); } }
+      .mono { font-family: 'JetBrains Mono', Consolas, 'Courier New', monospace; }
+      .sans { font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    </style>
+  </defs>
+
+  <g clip-path="url(#card)">
+    <rect width="1200" height="320" fill="#030409"/>
+    <rect width="1200" height="320" fill="url(#grid)"/>
+    <rect width="1200" height="320" fill="url(#glow)"/>
+    <rect width="1200" height="320" fill="url(#glow2)"/>
+
+    <!-- data streams -->
+    <g opacity=".55">
+      <g class="p" style="animation-duration:7s"><rect x="0" y="40" width="46" height="2" rx="1" fill="#22d3ee"/></g>
+      <g class="p" style="animation-duration:9s;animation-delay:-3s"><rect x="0" y="92" width="70" height="2" rx="1" fill="#8b5cf6"/></g>
+      <g class="p" style="animation-duration:6s;animation-delay:-1s"><rect x="0" y="118" width="34" height="2" rx="1" fill="#f472b6"/></g>
+      <g class="p" style="animation-duration:11s;animation-delay:-6s"><rect x="0" y="170" width="58" height="2" rx="1" fill="#22d3ee"/></g>
+      <g class="p" style="animation-duration:8s;animation-delay:-4s"><rect x="0" y="214" width="40" height="2" rx="1" fill="#34d399"/></g>
+      <g class="p" style="animation-duration:10s;animation-delay:-2s"><rect x="0" y="262" width="64" height="2" rx="1" fill="#8b5cf6"/></g>
+      <g class="p" style="animation-duration:7.5s;animation-delay:-5s"><rect x="0" y="290" width="38" height="2" rx="1" fill="#22d3ee"/></g>
+      <g class="p" style="animation-duration:12s;animation-delay:-8s"><rect x="0" y="66" width="52" height="2" rx="1" fill="#f472b6"/></g>
+    </g>
+
+    <rect x=".5" y=".5" width="1199" height="319" rx="22" fill="none" stroke="url(#g)" stroke-opacity=".55"/>
+
+    <!-- left: identity -->
+    <text x="60" y="74" class="mono" font-size="18" fill="#9aa3b8">&gt; spark.read.profile(<tspan fill="#fca5a5">"pravin"</tspan>).show()<tspan class="blink" fill="#22d3ee">▌</tspan></text>
+    <text x="56" y="158" class="sans" font-size="78" font-weight="800" fill="#ffffff" letter-spacing="-2">PRAVIN BOKARE</text>
+    <text x="60" y="204" class="sans" font-size="25" font-weight="700" fill="url(#g)">Data Engineer · Forward Deployed Engineer</text>
+    <text x="60" y="250" class="mono" font-size="16" fill="#9aa3b8">Databricks · Spark · Kafka · Azure · AWS · GenAI</text>
+    <text x="60" y="280" class="mono" font-size="14" fill="#5f677c">3× certified · Databricks Pro · Databricks Associate · Azure DP-203</text>
+
+    <!-- right: impact + CTA -->
+    <g class="mono" font-size="15">
+      <rect x="800" y="52" width="340" height="38" rx="19" fill="#0a0c16" stroke="#ffffff" stroke-opacity=".14"/>
+      <circle cx="822" cy="71" r="4" fill="#22d3ee"/>
+      <text x="836" y="76" fill="#e9edf6"><tspan font-weight="700" fill="#22d3ee">360M+</tspan> events / day streamed</text>
+
+      <rect x="800" y="100" width="340" height="38" rx="19" fill="#0a0c16" stroke="#ffffff" stroke-opacity=".14"/>
+      <circle cx="822" cy="119" r="4" fill="#a78bfa"/>
+      <text x="836" y="124" fill="#e9edf6"><tspan font-weight="700" fill="#a78bfa">5+ PB</tspan> migrated · <tspan font-weight="700" fill="#34d399">−25%</tspan> cost</text>
+
+      <rect x="800" y="148" width="340" height="38" rx="19" fill="#0a0c16" stroke="#ffffff" stroke-opacity=".14"/>
+      <circle cx="822" cy="167" r="4" fill="#f472b6"/>
+      <text x="836" y="172" fill="#e9edf6">LLM agent: reports <tspan font-weight="700" fill="#f472b6">3h → 20m</tspan></text>
+    </g>
+
+    <g>
+      <rect x="800" y="222" width="340" height="50" rx="25" fill="url(#g)"/>
+      <circle cx="822" cy="247" r="5" fill="#05060a" class="pulse"/>
+      <circle cx="822" cy="247" r="5" fill="#05060a"/>
+      <text x="838" y="253" class="sans" font-size="17" font-weight="800" fill="#05060a">OPEN MY PORTFOLIO</text>
+      <text x="1104" y="254" class="sans arrow" font-size="22" font-weight="800" fill="#05060a">→</text>
+    </g>
+    <text x="970" y="298" class="mono" font-size="13" fill="#9aa3b8" text-anchor="middle">pravinbokare.github.io</text>
+  </g>
+</svg>

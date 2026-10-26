@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pravin Bokare · Data Engineer</title>
+  <meta name="description" content="Pravin Bokare: Data Engineer & Forward Deployed Engineer. Real-time Kafka pipelines, governed Databricks lakehouses and LLM agents in production." />
+  <meta name="author" content="Pravin Bokare" />
+  <meta name="theme-color" content="#030409" />
+  <meta property="og:title" content="Pravin Bokare · Data Engineer" />
+  <meta property="og:description" content="360M+ events/day · 5+ PB migrated · −25% Databricks cost · LLM agents in production." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://pravinbokare.github.io/" />
+  <link rel="canonical" href="https://pravinbokare.github.io/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2322d3ee'/%3E%3Cstop offset='1' stop-color='%23f472b6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%23030409'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='url(%23g)' stroke-width='4'/%3E%3Ccircle cx='32' cy='32' r='6' fill='url(%23g)'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Unbounded:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <noscript><style>.loader { display: none; } .reveal { opacity: 1; transform: none; } .w { opacity: 1; }</style></noscript>
+</head>
+<body>
+
+  <!-- ===== LOADER ===== -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-top mono"><span>PB/ SYSTEM BOOT</span><span id="loader-msg">allocating executors…</span></div>
+    <div class="loader-num" id="loader-num">000</div>
+    <div class="loader-bar"><i id="loader-bar"></i></div>
+  </div>
+
+  <!-- ===== AMBIENT LAYERS ===== -->
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"><div class="c-dot"></div><div class="c-ring"><span class="c-label" id="c-label"></span></div></div>
+
+  <!-- ===== HEADER / HUD ===== -->
+  <header class="top">
+    <a class="brand" href="#top" aria-label="Back to top">PB<span>/</span></a>
+    <div class="top-status mono"><span class="pulse"></span>available · data engineer &amp; fde <span class="dim">/</span> <span id="hud-clock">--:--:--</span> IST</div>
+    <div class="top-actions">
+      <button class="kbd-btn" id="open-palette" aria-label="Open command palette" data-cursor="search">
+        <svg viewBox="0 0 24 24" width="14" height="14"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <kbd>Ctrl</kbd><kbd>K</kbd>
+      </button>
+      <button class="pill-btn" type="button" data-agent-open data-cursor="ask">✦ Ask my agent</button>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="menu" data-cursor="menu">
+        <span class="mb-lines"><i></i><i></i></span><span class="mono mb-txt">MENU</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="hud mono" aria-hidden="true">
+    <div class="hud-br"><span id="hud-idx">00</span><span class="dim"> / 08</span>&nbsp;&nbsp;<span id="hud-label">INDEX</span></div>
+    <div class="hud-rail"><i id="hud-rail"></i></div>
+  </div>
+
+  <nav class="menu" id="menu" aria-hidden="true" aria-label="Site menu">
+    <ol class="menu-list">
+      <li><a href="#about"><span class="mono">01</span>Manifesto</a></li>
+      <li><a href="#pipeline"><span class="mono">02</span>Architecture</a></li>
+      <li><a href="#experience"><span class="mono">03</span>Experience</a></li>
+      <li><a href="#projects"><span class="mono">04</span>Systems</a></li>
+      <li><a href="#terminal"><span class="mono">05</span>Terminal</a></li>
+      <li><a href="#skills"><span class="mono">06</span>Stack</a></li>
+      <li><a href="#certs"><span class="mono">07</span>Credentials</a></li>
+      <li><a href="#contact"><span class="mono">08</span>Contact</a></li>
+      <li><a href="#" data-agent-open><span class="mono">✦</span>Ask my agent</a></li>
+    </ol>
+    <div class="menu-foot mono">
+      <a href="mailto:pravinbokare10@gmail.com">pravinbokare10@gmail.com</a>
+      <a href="https://linkedin.com/in/pravin-bokare" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://leetcode.com/u/pravin-bokare" target="_blank" rel="noopener">LeetCode ↗</a>
+      <a class="gh-link gh-item" href="#" target="_blank" rel="noopener" hidden>GitHub ↗</a>
+      <span class="dim">tip: press 1–8 to jump · ctrl+k to search</span>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="top" data-shape="sphere" data-label="INDEX">
+      <div class="wrap hero-main">
+        <div class="hero-copy">
+          <div class="hero-badge reveal"><span class="pulse"></span><span>Open to <b>Data Engineer</b> &amp; <b>Forward Deployed Engineer</b> roles</span></div>
+          <p class="hero-hello mono reveal"><span class="dim">&gt;</span> spark.read.profile(<span class="str">"pravin"</span>)<span class="dim">.show()</span></p>
+          <h1 class="hero-title" aria-label="Pravin Bokare">
+            <span class="ht-line" data-split>PRAVIN</span>
+            <span class="ht-line ht-outline" data-split>BOKARE</span>
+          </h1>
+          <p class="hero-role reveal">I engineer <span class="typed" id="typed">real-time Kafka pipelines.</span><span class="caret" aria-hidden="true"></span></p>
+          <p class="hero-lede reveal">Data engineer building <em>real-time</em>, <em>governed</em> and <em>AI-ready</em> platforms on Databricks, Azure &amp; AWS, and shipping LLM agents on top of them.</p>
+          <div class="hero-cta reveal">
+            <a class="btn btn-solid magnetic" href="#projects" data-cursor="view">View systems <span aria-hidden="true">↘</span></a>
+            <a class="btn btn-line magnetic" href="assets/Pravin_Bokare_Resume.pdf" download data-cursor="save">Résumé.pdf</a>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="console-card tilt" data-tilt-max="8">
+            <div class="console-head">
+              <span class="dots"><i></i><i></i><i></i></span>
+              <span class="mono console-file">stream_monitor.py</span>
+              <span class="live-tag mono"><span class="pulse"></span>LIVE</span>
+            </div>
+            <div class="console-body">
+              <p class="mono cc-label">events_streamed_since_you_arrived</p>
+              <p class="live-count mono" id="live-count">0</p>
+              <div class="bars" id="bars" aria-hidden="true"></div>
+              <div class="console-rows mono">
+                <div><span class="k">topic</span><span class="v">kafka://payments.events</span></div>
+                <div><span class="k">throughput</span><span class="v ok">360M+ / day</span></div>
+                <div><span class="k">latency</span><span class="v"><s>hours</s> → minutes</span></div>
+                <div><span class="k">sink</span><span class="v">delta.gold.fact_txn</span></div>
+                <div><span class="k">status</span><span class="v ok">● RUNNING</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="float-chip fc1 mono"><span class="dot dbx"></span>Databricks Certified · Pro</div>
+          <div class="float-chip fc2 mono"><span class="dot az"></span>Azure DP-203</div>
+          <div class="float-chip fc3 mono"><span class="dot ai"></span>LangGraph · RAG · Agents</div>
+        </div>
+      </div>
+      <div class="hero-foot mono">
+        <span>SR. DATA ENGINEER @ DATANIMBUS</span>
+        <span class="scroll-ind">SCROLL<i></i></span>
+        <span>3+ YRS · 3× CERTIFIED</span>
+      </div>
+    </section>
+
+    <div class="band" data-band data-dir="-1" aria-hidden="true">
+      <div class="band-track"><span>DATABRICKS</span><i>✦</i><span class="o">APACHE SPARK</span><i>✦</i><span>KAFKA</span><i>✦</i><span class="o">DELTA LAKE</span><i>✦</i><span>UNITY CATALOG</span><i>✦</i><span class="o">LANGGRAPH</span><i>✦</i><span>VECTOR SEARCH</span><i>✦</i><span class="o">AZURE · AWS</span><i>✦</i></div>
+    </div>
+
+    <!-- ===== MANIFESTO + LIVE OPS ===== -->
+    <section class="manifesto" id="about" data-shape="helix" data-label="MANIFESTO">
+      <div class="wrap">
+        <p class="eyebrow mono reveal"><span>01</span>manifesto</p>
+        <p class="scrub" id="scrub">I build data platforms that move <em>360 million events a day</em>, govern banking data for <em>10+ teams</em> and cost <em>25% less</em> to run. Then I put <em>LLM agents</em> on top of them, in production, not just in demos.</p>
+
+        <div class="ops reveal" id="ops">
+          <div class="ops-head mono">
+            <span class="ops-title"><span class="pulse"></span>lakehouse-ops · live</span>
+            <span class="dim ops-note">simulated telemetry · modelled on my production scale</span>
+            <span class="ops-clock"><span id="ops-clock">--:--:--</span> IST</span>
+          </div>
+          <div class="ops-grid">
+            <div class="tile t-ev spot">
+              <p class="t-label mono">events streamed today <span class="dim">· kafka → delta</span></p>
+              <p class="t-big mono" id="ops-events">0</p>
+              <canvas class="spark" id="spark-events" aria-hidden="true"></canvas>
+              <p class="t-foot mono"><b id="ops-eps">4,166</b> events/s · pace 360M+/day</p>
+            </div>
+            <div class="tile t-gb spot">
+              <p class="t-label mono">landed in lakehouse today</p>
+              <p class="t-big mono"><span id="ops-gb">0.0</span><small> GB</small></p>
+              <div class="medal mono">
+                <div style="--c:#e08a4a"><span>bronze</span><i><b id="m-b"></b></i></div>
+                <div style="--c:#cbd5e1"><span>silver</span><i><b id="m-s"></b></i></div>
+                <div style="--c:#fbbf24"><span>gold</span><i><b id="m-g"></b></i></div>
+              </div>
+            </div>
+            <div class="tile t-log">
+              <p class="t-label mono">job log <span class="dim">· tail -f</span></p>
+              <ol class="log mono" id="ops-log"></ol>
+            </div>
+            <div class="tile t-src spot">
+              <p class="t-label mono">sources online</p>
+              <p class="t-big mono">15<small>/15</small></p>
+              <div class="src-grid" id="src-grid" aria-hidden="true"></div>
+            </div>
+            <div class="tile t-dq spot">
+              <p class="t-label mono">DLT expectations</p>
+              <p class="t-big mono"><span id="ops-dq">99.8</span><small>%</small></p>
+              <p class="t-foot mono"><b id="ops-rows">0</b> rows validated today</p>
+            </div>
+            <div class="tile t-cost spot">
+              <p class="t-label mono">spend vs baseline</p>
+              <div class="gauge">
+                <svg viewBox="0 0 120 70" aria-hidden="true"><path d="M10 62a50 50 0 0 1 100 0" class="g-bg"/><path d="M10 62a50 50 0 0 1 100 0" class="g-fg" id="gauge-fg"/></svg>
+                <b class="mono">−<span id="ops-cost">0</span>%</b>
+              </div>
+              <p class="t-foot mono">serverless · spot · predictive opt.</p>
+            </div>
+            <div class="tile t-rep spot">
+              <p class="t-label mono">risk-case report drafting <span class="dim">· agentic AI</span></p>
+              <div class="cmp mono">
+                <div><span>manual</span><i><b class="cb1"></b></i><em>3h 00m</em></div>
+                <div><span>agent</span><i><b class="cb2"></b></i><em>0h 20m</em></div>
+              </div>
+              <p class="t-foot mono">LangGraph ReAct · Llama 3 70B · MLflow Tracing</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ARCHITECTURE (horizontal flow) ===== -->
+    <section class="arch" id="pipeline" data-shape="layers" data-label="ARCHITECTURE">
+      <div class="wrap">
+        <p class="eyebrow mono reveal"><span>02</span>architecture</p>
+        <h2 class="h2 reveal">Source to insight<br />in <span class="grad">seven hops.</span></h2>
+        <p class="lede reveal">The lakehouse pattern I build and run in production. Click any stage, or let it auto-play.</p>
+
+        <div class="flow reveal">
+          <div class="flow-row" id="flow-row">
+            <button class="node" data-i="0" style="--c:#94a3b8">
+              <span class="n-num mono">01</span>
+              <span class="n-ico"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="7" ry="2.5"/><path d="M5 5.5v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6M5 11.5v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6"/></svg></span>
+              <span class="n-title">Sources</span>
+              <span class="n-sub mono">15+ systems</span>
+            </button>
+            <div class="link" aria-hidden="true"><i></i><i></i><i></i></div>
+            <button class="node" data-i="1" style="--c:#22d3ee">
+              <span class="n-num mono">02</span>
+              <span class="n-ico"><svg viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6l1-7Z"/></svg></span>
+              <span class="n-title">Ingest</span>
+              <span class="n-sub mono">Kafka · Auto Loader</span>
+            </button>
+            <div class="link" aria-hidden="true"><i></i><i></i><i></i></div>
+            <button class="node" data-i="2" style="--c:#e08a4a">
+              <span class="n-num mono">03</span>
+              <span class="n-ico"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span>
+              <span class="n-title">Bronze</span>
+              <span class="n-sub mono">raw · append</span>
+            </button>
+            <div class="link" aria-hidden="true"><i></i><i></i><i></i></div>
+            <button class="node" data-i="3" style="--c:#cbd5e1">
+              <span class="n-num mono">04</span>
+              <span class="n-ico"><svg viewBox="0 0 24 24"><path d="M4 5h16l-6 7v6l-4 2v-8L4 5Z"/></svg></span>
+              <span class="n-title">Silver</span>
+              <span class="n-sub mono">clean · validate</span>
+            </button>
+            <div class="link" aria-hidden="true"><i></i><i></i><i></i></div>
+            <button class="node" data-i="4" style="--c:#fbbf24">
+              <span class="n-num mono">05</span>
+              <span class="n-ico"><svg viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="M12 12 4 7.5M12 12l8-4.5M12 12v9"/></svg></span>
+              <span class="n-title">Gold</span>
+              <span class="n-sub mono">dimensional</span>
+            </button>
+            <div class="link" aria-hidden="true"><i></i><i></i><i></i></div>
+            <button class="node" data-i="5" style="--c:#a78bfa">
+              <span class="n-num mono">06</span>
+              <span class="n-ico"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="3"/></svg></span>
+              <span class="n-title">Serve</span>
+              <span class="n-sub mono">BI · GenAI</span>
+            </button>
+          </div>
+          <button class="node-gov" data-i="6" style="--c:#60a5fa">
+            <span class="gov-ico"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.5 7 10 4-1.5 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <span><b>Unity Catalog governance layer</b> <span class="mono dim">· PII · row/column security · lineage · audit · 100+ datasets</span></span>
+            <span class="n-num mono">07</span>
+          </button>
+
+          <div class="stage" id="stage" aria-live="polite">
+            <div class="stage-main">
+              <div class="stage-head"><span class="stage-num" id="stage-num">01</span><p class="stage-kicker mono" id="stage-kicker">SOURCES</p></div>
+              <h3 id="stage-title">Source systems &amp; contracts</h3>
+              <p id="stage-text"></p>
+              <div class="chips" id="stage-tags"></div>
+            </div>
+            <div class="stage-side">
+              <div class="stage-metric"><b id="stage-metric">15+</b><span class="mono" id="stage-mlabel">source systems</span></div>
+              <button class="play mono" id="flow-play" aria-pressed="true"><span class="pi">❚❚</span> <span class="pt">auto-play</span></button>
+            </div>
+            <div class="stage-progress"><i id="stage-progress"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EXPERIENCE ===== -->
+    <section class="xp" id="experience" data-shape="wave" data-label="EXPERIENCE">
+      <div class="wrap">
+        <p class="eyebrow mono reveal"><span>03</span>experience</p>
+        <h2 class="h2 reveal">Shipped to production,<br /><span class="grad">measured in numbers.</span></h2>
+
+        <div class="xp-filter mono reveal" role="toolbar" aria-label="Highlight achievements by theme">
+          <span class="dim">highlight →</span>
+          <button class="on" data-f="all">all</button>
+          <button data-f="stream">streaming</button>
+          <button data-f="lake">lakehouse</button>
+          <button data-f="gov">governance</button>
+          <button data-f="ai">genai</button>
+          <button data-f="cost">cost</button>
+          <button data-f="lead">ownership</button>
+        </div>
+
+        <article class="xp-item reveal">
+          <div class="xp-when">
+            <span class="xp-year">2025</span>
+            <span class="mono">FEB 2025 → NOW</span>
+            <span class="live mono"><span class="pulse"></span>CURRENT</span>
+          </div>
+          <div class="xp-body spot">
+            <h3>Senior Data Engineer</h3>
+            <p class="xp-org">DataNimbus India Pvt. Ltd. <span class="dim">· Hyderabad</span></p>
+            <ul class="xp-list">
+              <li data-t="lake">Designed a Databricks <b>medallion lakehouse</b> with Gold-layer dimensional models, ingesting <b>100+ GB/day</b> from 10+ financial sources via Auto Loader &amp; DLT; Spark optimizations made BI dashboards <b>60% faster</b>.</li>
+              <li data-t="cost">Cut Databricks costs by <b>25%</b> with no SLA impact: serverless compute, spot instances on classic clusters and predictive optimization on UC managed tables.</li>
+              <li data-t="lake stream">Orchestrated PySpark &amp; Spark SQL ETL in Lakeflow Jobs pulling <b>1M+ records/day</b> from 15+ sources; DLT expectations cut SLA violations by <b>50%</b>.</li>
+              <li data-t="ai">Architected an <b>agentic AI accelerator</b>: a LangGraph ReAct agent on Databricks-hosted Llama 3 70B with MLflow Tracing &amp; Model Serving. Report drafting went from <b>3 hours to 20 minutes</b>.</li>
+              <li data-t="ai gov">Built a <b>zero-egress RAG</b> pipeline on Vector Search (GTE-large), and gave the agent governed SQL tools through Unity Catalog functions.</li>
+              <li data-t="gov">Implemented <b>Unity Catalog governance</b> for <b>100+</b> banking &amp; payments datasets used by <b>10+</b> teams: PII classification, row/column security, lineage, secrets hardening.</li>
+              <li data-t="ai">Delivered a GenAI <b>semantic search</b> platform indexing <b>10K+</b> documents that cut manual tagging by <b>80%</b>.</li>
+              <li data-t="lead">Owned production pipeline architecture and <b>client &amp; stakeholder requests</b>: design docs, runbooks, code reviews, data contracts, monitoring &amp; alerting.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="xp-item reveal">
+          <div class="xp-when">
+            <span class="xp-year">2023</span>
+            <span class="mono">OCT 2023 → FEB 2025</span>
+          </div>
+          <div class="xp-body spot">
+            <h3>Data Engineer <span class="dim">(Systems Engineer)</span></h3>
+            <p class="xp-org">Tata Consultancy Services <span class="dim">· Bengaluru</span></p>
+            <ul class="xp-list">
+              <li data-t="stream">Engineered event-driven PySpark pipelines on <b>Kafka</b>, Structured Streaming &amp; Delta Lake processing <b>360M+ events/day</b>, cutting latency from hours to minutes.</li>
+              <li data-t="lake cost">Built reusable <b>ADF</b> frameworks for a <b>5+ PB</b> SQL Server → ADLS Gen2 migration, reducing engineering effort by <b>30%</b>.</li>
+              <li data-t="cost lake">Tuned partitioning for analytics: query performance <b>+35%</b>, pipeline runtime <b>−50%</b>.</li>
+              <li data-t="lake">Loaded S3 data into a <b>Redshift</b> warehouse; wrote complex SQL (window functions, CTEs) for analytics.</li>
+              <li data-t="lead">Automated Git-based <b>Azure DevOps CI/CD</b> releases; ran monitoring &amp; alerting on an Agile team.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== BUILDS (horizontal) ===== -->
+    <section class="builds" id="projects" data-shape="knot" data-label="SYSTEMS">
+      <div class="builds-sticky">
+        <div class="wrap builds-head">
+          <div>
+            <p class="eyebrow mono"><span>04</span>systems</p>
+            <h2 class="h2">Things I've <span class="grad">shipped.</span></h2>
+          </div>
+          <div class="builds-count mono"><span id="bc-cur">01</span> / 08 <span class="dim">· scroll →</span></div>
+        </div>
+        <div class="builds-viewport">
+          <div class="builds-track" id="builds-track">
+            <article class="bcard tilt spot" style="--a:#a78bfa">
+              <div class="bc-art" aria-hidden="true"><i></i></div>
+              <div class="bc-top mono"><span>01</span><span>AGENTIC AI</span></div>
+              <h3>Risk-Case Agent Accelerator</h3>
+              <p>LangGraph ReAct agent on Databricks-hosted Llama 3 70B with governed SQL tools, MLflow Tracing and Model Serving. It drafts risk-case reports end to end.</p>
+              <div class="bc-metric"><s>3h</s><span class="arr">→</span><b>20m</b></div>
+              <div class="chips"><span>LangGraph</span><span>Llama 3 70B</span><span>MLflow</span><span>Model Serving</span></div>
+            </article>
+            <article class="bcard tilt spot" style="--a:#22d3ee">
+              <div class="bc-art" aria-hidden="true"><i></i></div>
+              <div class="bc-top mono"><span>02</span><span>STREAMING</span></div>
+              <h3>Real-time Event Platform</h3>
+              <p>Event-driven PySpark on Kafka, Spark Structured Streaming and Delta Lake. Data latency for downstream analytics dropped from hours to minutes.</p>
+              <div class="bc-metric"><b>360M+</b><span class="mono">events / day</span></div>
+              <div class="chips"><span>Kafka</span><span>Structured Streaming</span><span>Delta Lake</span></div>
+            </article>
+            <article class="bcard tilt spot" style="--a:#fbbf24">
+              <div class="bc-art" aria-hidden="true"><i></i></div>
+              <div class="bc-top mono"><span>03</span><span>LAKEHOUSE</span></div>
+              <h3>Medallion Lakehouse</h3>
+              <p>Auto Loader + DLT across 10+ financial sources into Gold-layer dimensional models, with Spark tuning for the BI layer.</p>
+              <div class="bc-metric"><b>100+ GB</b><span class="mono">/ day · BI +60%</span></div>
+              <div class="chips"><span>Auto Loader</span><span>DLT</span><span>Dimensional Modeling</span></div>
+            </article>
+            <article class="bcard tilt spot" style="--a:#60a5fa">
+              <div class="bc-art" aria-hidden="true"><i></i></div>
+              <div class="bc-top mono"><span>04</span><span>GOVERNANCE</span></div>
+              <h3>Unity Catalog for Banking</h3>
+              <p>PII classification, row/column-level security, lineage, audit logging and access-control fixes across regulated payments data.</p>
+              <div class="bc-metric"><b>100+</b><span class="mono">datasets · 10+ teams</span></div>
+              <div class="chips"><span>Unity Catalog</span><span>RLS / CLS</span><span>Lineage</span></div>
+            </article>
+            <article class="bcard tilt spot" style="--a:#f472b6">
+              <div class="bc-art" aria-hidden="true"><i></i></div>
+              <div class="bc-top mono"><span>05</span><span>RAG</span></div>
+              <h3>Zero-Egress RAG</h3>
+              <p>Retrieval over Databricks Vector Search with GTE-large embeddings, plus Unity Catalog functions as governed SQL tools. Data never leaves the boundary.</p>
+              <div class="bc-metric"><b>0</b><span class="mono">bytes egress</span></div>
+              <div class="chips"><span>Vector Search</span><span>GTE-large</span><span>UC Functions</span></div>
+            </article>
+            <article class="bcard tilt spot" style="--a:#2dd4bf">
+              <div class="bc-art" aria-hidden="true"><i></i></div>
+              <div class="bc-top mono"><span>06</span><span>GENAI SEARCH</span></div>
+              <h3>Semantic Search Platform</h3>
+              <p>Foundation Model APIs and Vector Search that embed and index 10K+ unstructured documents for search and auto-tagging.</p>
+              <div class="bc-metric"><b>−80%</b><span class="mono">manual tagging</span></div>
+              <div class="chips"><span>FM APIs</span><span>Embeddings</span><span>Vector Search</span></div>
+            </article>
+            <article class="bcard tilt spot" style="--a:#34d399">
+              <div class="bc-art" aria-hidden="true"><i></i></div>
+              <div class="bc-top mono"><span>07</span><span>FINOPS</span></div>
+              <h3>Databricks Cost Optimization</h3>
+              <p>Serverless migration for eligible pipelines, spot instances on classic clusters and predictive optimization on managed tables.</p>
+              <div class="bc-metric"><b>−25%</b><span class="mono">spend · 0 SLA hits</span></div>
+              <div class="chips"><span>Serverless</span><span>Spot</span><span>Predictive Opt.</span></div>
+            </article>
+            <article class="bcard tilt spot" style="--a:#0ea5e9">
+              <div class="bc-art" aria-hidden="true"><i></i></div>
+              <div class="bc-top mono"><span>08</span><span>MIGRATION</span></div>
+              <h3>PB-scale Cloud Migration</h3>
+              <p>Reusable Azure Data Factory ingestion &amp; transformation frameworks moving on-prem SQL Server into an ADLS Gen2 data lake.</p>
+              <div class="bc-metric"><b>5+ PB</b><span class="mono">−30% effort</span></div>
+              <div class="chips"><span>ADF</span><span>ADLS Gen2</span><span>T-SQL</span></div>
+            </article>
+          </div>
+        </div>
+        <div class="wrap"><div class="builds-progress"><i id="builds-bar"></i></div></div>
+      </div>
+    </section>
+
+    <!-- ===== TERMINAL ===== -->
+    <section class="shell" id="terminal" data-shape="tunnel" data-label="TERMINAL">
+      <div class="wrap">
+        <p class="eyebrow mono reveal"><span>05</span>terminal</p>
+        <h2 class="h2 reveal">Prefer the<br /><span class="grad">command line?</span></h2>
+        <p class="lede reveal">A working shell. Type <code>help</code>, or try <code>SELECT * FROM skills;</code>, <code>neofetch</code> and <code>sudo hire pravin</code>.</p>
+
+        <div class="term reveal" id="term">
+          <div class="console-head">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="mono console-file">pravin@lakehouse: ~</span>
+            <span class="mono dim term-hint">↑↓ history · tab complete · ctrl+l clear</span>
+          </div>
+          <div class="term-body mono" id="term-body">
+            <div id="term-out"></div>
+            <div class="term-line">
+              <span class="term-prompt"><span class="u">pravin</span>@<span class="h">lakehouse</span>:<span class="d">~</span>$</span>
+              <input id="term-input" type="text" autocomplete="off" spellcheck="false" aria-label="Terminal input" />
+            </div>
+          </div>
+          <div class="term-quick mono">
+            <button data-cmd="whoami">whoami</button>
+            <button data-cmd="neofetch">neofetch</button>
+            <button data-cmd="experience">experience</button>
+            <button data-cmd="SELECT * FROM skills;">SELECT * FROM skills;</button>
+            <button data-cmd="certs">certs</button>
+            <button data-cmd="sudo hire pravin">sudo hire pravin</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STACK ===== -->
+    <section class="stack" id="skills" data-shape="cube" data-label="STACK">
+      <div class="wrap stack-grid">
+        <div class="stack-copy">
+          <p class="eyebrow mono reveal"><span>06</span>stack</p>
+          <h2 class="h2 reveal">50+ tools.<br /><span class="grad">One system.</span></h2>
+          <p class="lede reveal">Drag the sphere to spin it, or pick a category to light it up.</p>
+          <div class="legend reveal" id="legend"></div>
+          <p class="legend-list mono reveal" id="legend-list"></p>
+        </div>
+        <div class="sphere" id="sphere" data-cursor="drag" role="img" aria-label="Interactive sphere of technologies"></div>
+      </div>
+    </section>
+
+    <!-- ===== CREDENTIALS ===== -->
+    <section class="creds" id="certs" data-shape="cube" data-label="CREDENTIALS">
+      <div class="wrap">
+        <p class="eyebrow mono reveal"><span>07</span>credentials</p>
+        <h2 class="h2 reveal">Certified on the<br /><span class="grad">platforms I build on.</span></h2>
+
+        <div class="certs">
+          <div class="flip reveal" tabindex="0" role="button" aria-label="Databricks Certified Data Engineer Professional, flip for details" style="--c1:#ff3621;--c2:#ff9a6b" data-cursor="flip">
+            <div class="flip-in">
+              <div class="flip-face front">
+                <img class="badge" src="badges/databricks-de-professional.png" alt="Databricks Certified Data Engineer Professional badge" width="180" height="180" loading="lazy" decoding="async" />
+                <span class="lvl mono">PROFESSIONAL</span>
+                <p class="issuer mono">DATABRICKS</p>
+                <h3>Certified Data Engineer Professional</h3>
+                <p class="flip-hint mono">click to flip ↻</p>
+              </div>
+              <div class="flip-face back">
+                <p class="issuer mono">WHAT IT VALIDATES</p>
+                <ul><li>Advanced pipeline design &amp; optimization</li><li>Production ops, monitoring &amp; testing</li><li>Security &amp; governance on Databricks</li><li>Data modeling for the lakehouse</li></ul>
+                <p class="verified mono">✓ CERTIFIED</p>
+              </div>
+            </div>
+          </div>
+          <div class="flip reveal" tabindex="0" role="button" aria-label="Databricks Certified Data Engineer Associate, flip for details" style="--c1:#ff6b35;--c2:#fbbf24" data-cursor="flip">
+            <div class="flip-in">
+              <div class="flip-face front">
+                <img class="badge" src="badges/databricks-de-associate.png" alt="Databricks Certified Data Engineer Associate badge" width="180" height="180" loading="lazy" decoding="async" />
+                <span class="lvl mono">ASSOCIATE</span>
+                <p class="issuer mono">DATABRICKS</p>
+                <h3>Certified Data Engineer Associate</h3>
+                <p class="flip-hint mono">click to flip ↻</p>
+              </div>
+              <div class="flip-face back">
+                <p class="issuer mono">WHAT IT VALIDATES</p>
+                <ul><li>Lakehouse platform fundamentals</li><li>ELT with Spark SQL &amp; Python</li><li>Incremental data processing</li><li>Production pipelines &amp; Delta Lake</li></ul>
+                <p class="verified mono">✓ CERTIFIED</p>
+              </div>
+            </div>
+          </div>
+          <div class="flip reveal" tabindex="0" role="button" aria-label="Microsoft Azure Data Engineer Associate DP-203, flip for details" style="--c1:#0078d4;--c2:#50e6ff" data-cursor="flip">
+            <div class="flip-in">
+              <div class="flip-face front">
+                <img class="badge" src="badges/azure-data-engineer-associate.png" alt="Microsoft Certified Azure Data Engineer Associate badge" width="180" height="180" loading="lazy" decoding="async" />
+                <span class="lvl mono">DP-203</span>
+                <p class="issuer mono">MICROSOFT</p>
+                <h3>Azure Data Engineer Associate</h3>
+                <p class="flip-hint mono">click to flip ↻</p>
+              </div>
+              <div class="flip-face back">
+                <p class="issuer mono">WHAT IT VALIDATES</p>
+                <ul><li>Designing Azure data storage</li><li>Data processing with ADF &amp; Synapse</li><li>Securing &amp; monitoring data solutions</li><li>Optimizing pipelines on Azure</li></ul>
+                <p class="verified mono">✓ CERTIFIED</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="edu reveal spot">
+          <div class="edu-ring">
+            <svg viewBox="0 0 120 120"><defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#f472b6"/></linearGradient></defs><circle cx="60" cy="60" r="52" class="r-bg"/><circle cx="60" cy="60" r="52" class="r-fg" id="cgpa-ring"/></svg>
+            <div class="r-label"><b>9.45</b><span class="mono">/ 10</span></div>
+          </div>
+          <div>
+            <p class="issuer mono">EDUCATION · 2019 → 2023</p>
+            <h3>B.Tech · Walchand Institute of Technology</h3>
+            <p class="dim">Solapur, India · graduated with a 9.45 CGPA</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="band" data-band data-dir="1" aria-hidden="true">
+      <div class="band-track"><span>OPEN TO WORK</span><i>✦</i><span class="o">DATA ENGINEER</span><i>✦</i><span>FORWARD DEPLOYED ENGINEER</span><i>✦</i><span class="o">BASED IN PUNE, INDIA</span><i>✦</i></div>
+    </div>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="contact" id="contact" data-shape="galaxy" data-label="CONTACT">
+      <div class="wrap">
+        <p class="eyebrow mono reveal"><span>08</span>contact</p>
+        <h2 class="mega reveal"><span>LET'S BUILD</span><span class="outline">SOMETHING REAL.</span></h2>
+        <div class="contact-row reveal">
+          <p>Open to <b>Data Engineer</b> and <b>Forward Deployed Engineer</b> roles. Bring me a messy data problem, and I'll bring back a production system.</p>
+          <a class="orb magnetic" href="mailto:pravinbokare10@gmail.com" data-cursor="email"><span>Say<br />hello</span></a>
+        </div>
+        <div class="contact-links reveal">
+          <button class="cl" id="copy-email" data-email="pravinbokare10@gmail.com" data-cursor="copy">pravinbokare10@gmail.com <span class="mono">⧉ copy</span></button>
+          <a class="cl" href="https://linkedin.com/in/pravin-bokare" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a class="cl" href="https://leetcode.com/u/pravin-bokare" target="_blank" rel="noopener">LeetCode ↗</a>
+          <a class="cl gh-link gh-item" href="#" target="_blank" rel="noopener" hidden>GitHub ↗</a>
+          <a class="cl" href="assets/Pravin_Bokare_Resume.pdf" download>Résumé ↓</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot mono">
+    <span>© <span id="year">2026</span> Pravin Bokare</span>
+    <span class="dim">built from scratch · three.js + vanilla JS · GitHub Pages</span>
+    <a href="https://github.com/pravinbokare" target="_blank" rel="noopener">github.com/pravinbokare ↗</a>
+  </footer>
+
+  <!-- ===== FLOATING AGENT ===== -->
+  <div class="aw" id="aw">
+    <div class="aw-teaser" id="aw-teaser" hidden>
+      <button class="aw-x" id="aw-teaser-x" aria-label="Dismiss">×</button>
+      <p><b>Hi 👋 I'm Pravin's résumé agent.</b> Ask me about Kafka, cost savings, GenAI or Forward Deployed fit.</p>
+    </div>
+
+    <section class="aw-panel" id="aw-panel" role="dialog" aria-label="Résumé agent chat" aria-hidden="true">
+      <header class="aw-head">
+        <span class="aw-av">PB</span>
+        <div class="aw-id">
+          <b>Pravin's résumé agent</b>
+          <span class="mono"><span class="pulse"></span>online · local · zero-egress</span>
+        </div>
+        <button class="aw-btn" id="aw-reset" aria-label="Clear chat" title="Clear chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+        </button>
+        <button class="aw-btn" id="aw-close" aria-label="Close chat" title="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </header>
+      <div class="agent-log" id="agent-log" aria-live="polite"></div>
+      <div class="agent-suggest" id="agent-suggest">
+        <button>What's his Kafka experience?</button>
+        <button>How did he cut costs?</button>
+        <button>Tell me about the AI agent</button>
+        <button>Why a Forward Deployed Engineer?</button>
+        <button>Certifications?</button>
+        <button>How do I contact him?</button>
+      </div>
+      <form class="agent-form" id="agent-form" autocomplete="off">
+        <input id="agent-q" type="text" placeholder="Ask about streaming, RAG, cost…" aria-label="Ask a question" maxlength="200" />
+        <button type="submit" aria-label="Send" data-cursor="send">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+      <p class="aw-foot mono">keyword retrieval over my résumé · no LLM calls · nothing leaves your browser</p>
+    </section>
+
+    <button class="aw-launch" id="aw-launch" aria-expanded="false" aria-controls="aw-panel" aria-label="Open résumé agent chat" data-cursor="chat">
+      <span class="aw-ring" aria-hidden="true"></span>
+      <svg class="aw-ico aw-open" viewBox="0 0 24 24" aria-hidden="true"><path class="sp-main" fill="currentColor" d="M10.5 4C11.1 8.6 13.9 11.4 18.5 12 13.9 12.6 11.1 15.4 10.5 20 9.9 15.4 7.1 12.6 2.5 12 7.1 11.4 9.9 8.6 10.5 4Z"/><path class="sp-a" fill="currentColor" d="M19 1.8C19.25 3.4 20.1 4.25 21.7 4.5 20.1 4.75 19.25 5.6 19 7.2 18.75 5.6 17.9 4.75 16.3 4.5 17.9 4.25 18.75 3.4 19 1.8Z"/><path class="sp-b" fill="currentColor" d="M19.5 16.6C19.7 17.7 20.3 18.3 21.4 18.5 20.3 18.7 19.7 19.3 19.5 20.4 19.3 19.3 18.7 18.7 17.6 18.5 18.7 18.3 19.3 17.7 19.5 16.6Z"/></svg>
+      <svg class="aw-ico aw-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      <span class="aw-dot" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="palette" id="palette" hidden>
+    <div class="palette-backdrop" data-close></div>
+    <div class="palette-box" role="dialog" aria-modal="true" aria-label="Command palette">
+      <div class="palette-input">
+        <svg viewBox="0 0 24 24" width="18" height="18"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="palette-input" type="text" placeholder="Jump to a section or run an action…" autocomplete="off" spellcheck="false" />
+        <kbd>Esc</kbd>
+      </div>
+      <ul id="palette-list" role="listbox"></ul>
+      <div class="palette-foot mono"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>Enter</kbd> select</span></div>
+    </div>
+  </div>
+
+  <div class="toast mono" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>
