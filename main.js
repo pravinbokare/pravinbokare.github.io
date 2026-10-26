@@ -806,13 +806,21 @@ const KB = [
     p: ['**B.Tech**, Walchand Institute of Technology, Solapur',
       '2019 – 2023',
       'CGPA **9.45 / 10**'] },
-  { id: 'fit.fde', k: ['forward', 'deployed', 'fde', 'customer', 'client', 'stakeholder', 'fit', 'why', 'hire', 'role', 'looking', 'open', 'job'],
-    t: 'Why he fits Forward Deployed Engineer roles:',
+  { id: 'fit.de', k: ['data engineer', 'data engineering', 'why', 'hire', 'fit', 'role', 'looking', 'open', 'job', 'strong', 'good', 'best'],
+    t: "Why he's a strong Data Engineer:",
+    p: ['**3+ years** building production batch & streaming platforms on Databricks, Azure and AWS',
+      '**360M+ events/day** on Kafka + Structured Streaming; **100+ GB/day** medallion lakehouse',
+      '**5+ PB** cloud migration; Databricks costs cut **25%**; BI dashboards **60% faster**',
+      'Governance at banking scale: **100+** Unity Catalog datasets for **10+** teams',
+      '**Databricks Certified Data Engineer Professional** + Associate, and Azure **DP-203**',
+      'Looking for **Data Engineer** roles first; also open to Forward Deployed Engineer roles'] },
+  { id: 'fit.fde', k: ['forward', 'deployed', 'fde', 'customer', 'client', 'stakeholder'],
+    t: 'Also a fit for Forward Deployed Engineer roles:',
     p: ['Handles **client & stakeholder requests** directly at DataNimbus',
       'Owns **production pipeline architecture** end to end',
       'Writes **design docs & runbooks**, leads **code reviews**, sets data-contract standards',
       'Has shipped **lakehouses, governance and LLM agents** to production',
-      'Open to **Data Engineer** and **Forward Deployed Engineer** roles'] },
+      'Primary focus stays on **Data Engineer** roles'] },
   { id: 'contact', k: ['contact', 'email', 'reach', 'linkedin', 'connect', 'talk', 'resume', 'cv', 'leetcode', 'mail'],
     t: 'Get in touch:',
     p: ['**Email:** pravinbokare10@gmail.com',
@@ -826,11 +834,11 @@ const KB = [
 ];
 const KB_FALLBACK = {
   t: "I couldn't find that in the résumé. Try asking about:",
-  p: ['**Kafka streaming** and the lakehouse', '**Cost savings** on Databricks', '**RAG and AI agents**', '**Governance** and certifications', 'Why he fits **Forward Deployed** roles'],
+  p: ['**Kafka streaming** and the lakehouse', '**Cost savings** on Databricks', '**RAG and AI agents**', '**Governance** and certifications', 'Why he fits **Data Engineer** roles'],
 };
 const KB_GREETING = {
   t: "Hi, I'm Pravin's résumé agent 👋 Ask me about:",
-  p: ['**Streaming & lakehouse** work at scale', '**GenAI agents and RAG** in production', 'How he cut Databricks costs by **25%**', "Why he'd be a strong **Forward Deployed Engineer**"],
+  p: ["Why he's a strong **Data Engineer**", '**Streaming & lakehouse** work at scale', 'How he cut Databricks costs by **25%**', '**GenAI agents and RAG** built on the lakehouse'],
 };
 const STOP = new Set('a an the is are was were be been of to in on for and or with his her he she it its this that what whats which who how did does do can could would should tell me about any has have had give some please you your pravin s'.split(' '));
 
@@ -850,6 +858,7 @@ const KB_ACTIONS = {
   'skills.stack': [['Open stack sphere', '#skills'], ['Run SQL in terminal', 'sql']],
   'certs': [['View badges', '#certs']],
   'education': [['View credentials', '#certs']],
+  'fit.de': [['Email Pravin', 'email'], ['See experience', '#experience'], ['Download résumé', 'resume']],
   'fit.fde': [['Email Pravin', 'email'], ['See experience', '#experience']],
   'contact': [['Copy email', 'copy'], ['Open LinkedIn', 'linkedin'], ['Download résumé', 'resume']],
   'location': [['Contact', '#contact']],
@@ -1486,7 +1495,7 @@ function initTerminal() {
     }
     if (name === 'ask' || name === 'agent') {
       const q = cmd.slice(cmd.indexOf(' ') + 1).trim();
-      if (!q || q.toLowerCase() === name) { print('<span class="t-dim">usage: ask &lt;question&gt; · e.g.</span> <span class="t-cyan">ask why forward deployed</span>'); return; }
+      if (!q || q.toLowerCase() === name) { print('<span class="t-dim">usage: ask &lt;question&gt; · e.g.</span> <span class="t-cyan">ask why hire a data engineer</span>'); return; }
       print('<span class="t-lilac">✦</span> <span class="t-dim">forwarding to résumé agent →</span>');
       window.__agent?.ask(q);
       return;
@@ -1555,7 +1564,7 @@ function initPalette() {
     { label: 'Stack sphere', icon: '⚙', group: 'jump', run: go('#skills') },
     { label: 'Credentials', icon: '✓', group: 'jump', run: go('#certs') },
     { label: 'Contact', icon: '✉', group: 'jump', run: go('#contact') },
-    { label: 'Ask agent: Why a Forward Deployed Engineer?', icon: '✦', group: 'agent', run: () => window.__agent?.ask('Why a Forward Deployed Engineer?') },
+    { label: 'Ask agent: Why hire him as a Data Engineer?', icon: '✦', group: 'agent', run: () => window.__agent?.ask('Why hire him as a Data Engineer?') },
     { label: 'Ask agent: How did he cut costs?', icon: '✦', group: 'agent', run: () => window.__agent?.ask('How did he cut costs?') },
     { label: 'Copy email address', icon: '⧉', group: 'action', run: () => copyText(CONFIG.email, 'Email copied') },
     { label: 'Download résumé (PDF)', icon: '↓', group: 'action', run: () => { const a = document.createElement('a'); a.href = CONFIG.resume; a.download = 'Pravin_Bokare_Resume.pdf'; a.click(); } },

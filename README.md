@@ -2,7 +2,7 @@
 
 **Live site → https://pravinbokare.github.io**
 
-Personal site of **Pravin Bokare**, Data Engineer (Databricks · Spark · Kafka · Azure · AWS · GenAI), open to Data Engineer and Forward Deployed Engineer roles.
+Personal site of **Pravin Bokare**, Data Engineer (Databricks · Spark · Kafka · Azure · AWS · GenAI), open to Data Engineer roles (and also Forward Deployed Engineer roles).
 
 Hand-built with plain HTML, CSS and JavaScript plus [three.js](https://threejs.org) for the particle field. There's no framework and no build step; GitHub Pages serves the files as they are.
 
